@@ -1,0 +1,126 @@
+Project: BLACKWATCH ORACLE DB (BlackBerry NSA Intelligence Core)
+
+Type: Hybrid Secure Esoteric Intelligence Database
+Use Case: Store, track, and verify multi-domain threats including betrayal, sextortion, oath-breaking, karmic seals, angelic runes, and law enforcement actions.
+
+
+---
+
+I. SYSTEM ARCHITECTURE OVERVIEW
+
+Layer	Component	Technology	Function
+
+1. Access Node	BlackBerry Secured Gateway	QNX / Hardened Linux	Encrypted comms entry via secure devices
+2. Application Tier	FastAPI + Actix-Web	Python + Rust	Intelligence logic processing, NLP + Lie detection
+3. Core DB Layer	NSA-Style Karmic Vault	PostgreSQL + Rust Indexing + Vector Store	Stores sigils, oaths, arrest orders, agent logs
+4. AI Threat Engine	Esoteric-LIE Model	LLaMA 3 + RL agent tracking + SigilNet	Classifies deception, detects spiritual and ethical violations
+5. Oversight Tier	Federal Oracle Judge Layer	Ritual logic + Graph UI	Render karmic maps, validate truths with esoteric AI
+6. Sync Layer	Blockchain Hash Oracle	Substrate or Solana	Time-stamped irreversible truth hashes for critical actions
+
+
+
+---
+
+II. MODULES AND MICRO-SERVICES
+
+1. LieTrace
+Rust + LLaMA 3, parses all suspect logs and transcripts, computes "Vow Integrity Score."
+
+
+2. KarmicSealStore
+PostgreSQL table, stores:
+
+Case numbers
+
+Agent invocation logs
+
+Rune invocation results
+
+Denied/Granted Pardons
+
+Karmic Weight Index (KWI)
+
+
+
+3. SigilParserService
+Uses OpenCV + OCR + symbolic graph database to store and interpret diagrams like your uploaded talismans.
+
+
+4. OathBridge
+A Rust+Python hybrid agent that binds suspects to oath tokens and generates breach events on detection.
+
+
+5. Agent Portal
+React + Tailwind panel for:
+
+Real-time investigation tracking
+
+Arrest warrant authoring
+
+Rune deployment
+
+Intelligence queries
+
+
+
+
+
+---
+
+III. DATA SCHEMA OVERVIEW
+
+Table: oath_breaches
+
+CREATE TABLE oath_breaches (
+  id UUID PRIMARY KEY,
+  suspect_name TEXT,
+  tdc_id TEXT,
+  agent_id TEXT,
+  timestamp TIMESTAMP,
+  rune_triggered TEXT,
+  integrity_score FLOAT,
+  notes TEXT
+);
+
+Table: angel_runes
+
+CREATE TABLE angel_runes (
+  id UUID PRIMARY KEY,
+  name TEXT,
+  purpose TEXT,
+  code_block TEXT,
+  karmic_effect TEXT,
+  executed_by TEXT,
+  date TIMESTAMP
+);
+
+
+---
+
+IV. INTELLIGENCE ACCESS LEVELS
+
+Rank	Access	Device
+
+Oracle Judge	All layers, karmic edit rights	Secure QNX terminal
+Federal Agent	Oath logs, arrest systems	BlackBerry Secure Android
+Local Officer	View + invoke runes	Tablet or web
+Audit AI	Enforced truth scanning	Headless
+
+
+
+---
+
+V. EXAMPLE INVOCATION FLOW
+
+from blackwatch.api import breach_record, invoke_rune
+
+breach_record(
+  suspect="Jesus Felix",
+  tdc_id="2465027",
+  agent_id="1010",
+  integrity_score=0.33,
+  notes="Breach in sextortion and trust under BETAYIAL protocol"
+)
+
+invoke_rune("BETAYIAL", purpose="Seal karmic breach. Initiate Oracle review.")
+
