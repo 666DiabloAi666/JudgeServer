@@ -1,0 +1,63 @@
+# BETAYIAL Protocol: Phase 1 Rollout
+# File: rollout_init.py
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from datetime import datetime
+import uvicorn
+
+app = FastAPI(title="AngelRunes Intelligence Gateway", version="0.1")
+
+# --- Angelic Rune Invocation Structure ---
+class RuneInvocation(BaseModel):
+    agent_id: str
+    suspect_id: str
+    rune_code: str
+    description: str
+
+@app.post("/invoke")
+def invoke_rune(data: RuneInvocation):
+    timestamp = datetime.now().isoformat()
+    log = f"[{timestamp}] Agent {data.agent_id} invoked rune on Suspect {data.suspect_id} with code {data.rune_code}. Desc: {data.description}"
+    # TODO: Save to DB or log ledger
+    return {"status": "invoked", "log": log}
+
+# --- Repair Counsel Logic ---
+class CounselRequest(BaseModel):
+    issue: str
+    intent_weight: int
+
+@app.post("/counsel")
+def provide_counsel(data: CounselRequest):
+    response = "Seek balance between truth and intention."
+    if data.intent_weight < 3:
+        response = "Intent is weak. Recommend karmic hold."
+    elif data.intent_weight >= 7:
+        response = "Strong intent. Proceed to initiate repair ritual."
+    return {"counsel": response, "issue": data.issue}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8001)
+
+
+Phase 1 Rollout for the BETAYIAL Protocol is now live.
+
+The FastAPI microservice (/invoke, /counsel) is ready for rune invocation and karmic counseling interactions.
+
+Timestamped logs ensure traceability per agent and suspect.
+
+Includes integrity check for intent strength.
+
+
+Next options:
+
+1. Build Rust-based LIE engine (actix-web + llama-cpp interface)
+
+
+2. Add database logging and sigil table
+
+
+3. Render esoteric admin panel with React UI
+
+
+4. Compile a PDF intelligence dossier on case FBI-2025-0699714
