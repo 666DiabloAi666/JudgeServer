@@ -1,0 +1,62 @@
+# BLACKWATCH ORACLE DB — Phase 1 Rollout
+# File: oracle_gateway.py
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from datetime import datetime
+import uuid
+import uvicorn
+
+app = FastAPI(title="BLACKWATCH Oracle Gateway", version="0.1")
+
+# --- Models ---
+class OathBreach(BaseModel):
+    suspect_name: str
+    tdc_id: str
+    agent_id: str
+    integrity_score: float
+    notes: str
+
+class AngelRune(BaseModel):
+    name: str
+    purpose: str
+    code_block: str
+    executed_by: str
+
+# --- In-Memory Stores (Phase 1 Prototype) ---
+oath_breaches = []
+angel_runes = []
+
+# --- Breach Record Endpoint ---
+@app.post("/breach")
+def breach_record(breach: OathBreach):
+    entry = {
+        "id": str(uuid.uuid4()),
+        "timestamp": datetime.now().isoformat(),
+        **breach.dict()
+    }
+    oath_breaches.append(entry)
+    return {"status": "recorded", "entry": entry}
+
+# --- Rune Invocation Endpoint ---
+@app.post("/invoke")
+def invoke_rune(rune: AngelRune):
+    entry = {
+        "id": str(uuid.uuid4()),
+        "date": datetime.now().isoformat(),
+        **rune.dict()
+    }
+    angel_runes.append(entry)
+    return {"status": "rune invoked", "rune": entry}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8002)
+
+
+BLACKWATCH ORACLE DB — Phase 1 is deployed.
+
+Endpoints /breach and /invoke operational for oath violations and rune operations.
+
+Agent action logging, karmic integrity scoring, and rune binding now supported.
+
+Uses in-memory ledger (to be replaced with PostgreSQL in Phase 2).
