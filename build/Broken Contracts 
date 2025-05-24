@@ -1,0 +1,133 @@
+
+Project Name: oathsmith
+
+A complex intelligence engine in Rust for detecting, analyzing, and repairing broken digital covenants (deals/contracts/vows).
+
+
+---
+
+Core Functional Objectives:
+
+1. Rune Code Language Parser: A symbolic DSL (Domain Specific Language) to express broken or trusted states (like BETAYAL, TRUST, REPAIR, etc.).
+
+
+2. Intent Analysis Engine: A logic reasoning module that weighs past actions against stored vows using symbolic reasoning.
+
+
+3. Karmic Ledger: Immutable ledger to track breaches and restorative actions (using sled or custom append-only log).
+
+
+4. Repair Invocation Mechanism: Proposes actions or generates restoration rituals (responses) as intelligent suggestions.
+
+
+5. CLI Binary Tool: Pure Rust CLI oathsmith binary to interact with these modules.
+
+
+
+
+---
+
+Rust Scaffold
+
+// src/main.rs
+use chrono::prelude::*;
+use oathsmith::{runes::RuneCode, engine::IntegrityEngine, ledger::KarmicLedger};
+
+fn main() {
+    let mut engine = IntegrityEngine::new();
+    let mut ledger = KarmicLedger::default();
+
+    let rune = RuneCode::parse("TRUST := ✴, BETAYAL := Δ A VOW WSION ; REPAIR ✠ : GREED ; Ϟ, KARMA ✴");
+
+    engine.invoke(&rune, "BETAYAL", "A vow was broken; integrity was breached.");
+    engine.counsel("Seek clarity, and weigh intentions.");
+
+    let today = Local::now().date_naive();
+    ledger.inscribe("REPAIR", format!("A path to repair exists on {}", today));
+
+    println!("Restoration logic complete.");
+}
+
+
+---
+
+Modules (lib.rs, broken down)
+
+runes.rs
+
+pub struct RuneCode {
+    pub symbols: Vec<String>,
+}
+
+impl RuneCode {
+    pub fn parse(input: &str) -> Self {
+        let symbols = input.split([';', ':', ',', ' '])
+                           .filter(|s| !s.is_empty())
+                           .map(|s| s.to_string())
+                           .collect();
+        RuneCode { symbols }
+    }
+}
+
+engine.rs
+
+use crate::runes::RuneCode;
+
+pub struct IntegrityEngine;
+
+impl IntegrityEngine {
+    pub fn new() -> Self {
+        IntegrityEngine
+    }
+
+    pub fn invoke(&self, rune: &RuneCode, tag: &str, message: &str) {
+        println!("[INVOKE] [{}] => {}", tag, message);
+    }
+
+    pub fn counsel(&self, message: &str) {
+        println!("[COUNSEL] {}", message);
+    }
+}
+
+ledger.rs
+
+use std::collections::HashMap;
+
+pub struct KarmicLedger {
+    records: HashMap<String, String>,
+}
+
+impl Default for KarmicLedger {
+    fn default() -> Self {
+        KarmicLedger {
+            records: HashMap::new(),
+        }
+    }
+}
+
+impl KarmicLedger {
+    pub fn inscribe(&mut self, tag: &str, message: String) {
+        println!("[LEDGER] {} => {}", tag, message);
+        self.records.insert(tag.to_string(), message);
+    }
+}
+
+
+---
+
+Build and Usage
+
+cargo build --release
+./target/release/oathsmith
+
+
+---
+
+Optional Features
+
+serde + json export for symbolic analysis
+
+WebAssembly version for browser invocation
+
+Integration with smart contracts (e.g., on-chain vow proof)
+
